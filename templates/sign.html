@@ -1,0 +1,19 @@
+{% extends "layout.html" %} {% block content %}
+<h2>Sign For A Quotation</h2>
+
+<form class="form-style" action="{{ url_for('sign') }}" method="post">
+	<p class="heading">
+		Quote: <textarea rows="5" cols="50" name="quote"></textarea>
+	</p>
+	<p class="heading">Author: <input type="text" name="author" /></p>
+	<p class="heading">Date: <input type="date" name="date_of_quote" /></p>
+	<p class="heading">Source Type: <input type="text" name="source_type" /></p>
+	<p class="heading">
+		Source of Quote: <input type="text" name="source_of_quote" />
+	</p>
+	<p class="heading">
+		Quote Rating: <input type="number" name="quote_rating" min="0" max="5" />
+	</p>
+	<p><input class="btn" type="submit" value="Sign" /></p>
+</form>
+{% endblock %}

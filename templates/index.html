@@ -1,0 +1,103 @@
+{% extends "layout.html" %} {% block content %}
+<h2>Quotation Book</h2>
+
+<h3>Sign <a href="{{ url_for('sign') }}">here</a></h3>
+<h3>Quotations</h3>
+{% for entry in entries %}
+<div class="entry" id="{{entry.quote_id}}">
+	<div class="quote">{{ entry.quote }}</div>
+	<div class="author">Author: {{ entry.author }}</div>
+	<div class="date">Date: {{ entry.date_of_quote }}</div>
+	<div class="source-type">Source Type:{{ entry.source_type }}</div>
+	<div class="source-of-quote">
+		Source of The Quote: {{ entry.source_of_quote }}
+	</div>
+	<div class="rating">Rating: {{ entry.quote_rating }}</div>
+	<div>
+		<!-- <button
+			type="button"
+			class="updatebtn"
+			data-quote-id="{{ entry.quote_id }}"
+		>
+			<a href="{{ url_for('update', quote_id=entry.quote_id) }}">Update</a>
+		</button> -->
+		<button class="btn" onclick="showUpdateWarning()">Update</button>
+		<button
+			type="button"
+			class="deletebtn btn"
+			data-quote-id="{{ entry.quote_id }}"
+			onclick="deleteEntry(this)"
+		>
+			Delete
+		</button>
+	</div>
+</div>
+{% endfor %}
+
+<script>
+	// document.addEventListener('DOMContentLoaded', () => {
+	// 	// Add event listeners to all delete buttons
+	// 	const deleteButtons = document.querySelectorAll('.deletebtn');
+	// 	deleteButtons.forEach((button) => {
+	// 		button.addEventListener('click', async () => {
+	// 			try {
+	// 				// Get the quote_id from the data attribute
+	// 				const quoteId = button.getAttribute('data-quote-id');
+	// 				// Send a POST request to delete the entry
+	// 				const response = await fetch(`/delete/${quoteId}`, {
+	// 					method: 'POST',
+	// 				});
+	// 				// Check if the request was successful
+	// 				if (response.ok) {
+	// 					// Remove the card from the DOM
+	// 					const card = document.getElementById(quoteId);
+	// 					card.parentNode.removeChild(card);
+	// 				} else {
+	// 					// Handle error
+	// 					console.error('Failed to delete entry');
+	// 				}
+	// 			} catch (error) {
+	// 				// Handle network error
+	// 				console.error('Error deleting entry:', error);
+	// 			}
+	// 		});
+	// 	});
+	// });
+
+    //to warning the user
+	function showUpdateWarning() {
+		alert('Still working on it, please wait for an update!');
+	}
+
+    // to delete the quotation
+	function deleteEntry(button) {
+		try {
+			// Get the quote_id from the data attribute
+			const quoteId = button.getAttribute('data-quote-id');
+			// Send a POST request to delete the entry
+			fetch(`/delete/${quoteId}`, {
+				method: 'POST',
+			})
+				.then((response) => {
+					// Check if the request was successful
+					if (response.ok) {
+						// Remove the card from the DOM
+						const card = document.getElementById(quoteId);
+						card.parentNode.removeChild(card);
+					} else {
+						// Handle error
+						console.error('Failed to delete the quotation');
+					}
+				})
+				.catch((error) => {
+					// Handle network error
+					console.error('Error deleting the quotation:', error);
+				});
+		} catch (error) {
+			// Handle any other errors
+			console.error('Error deleting the quotation:', error);
+		}
+	}
+</script>
+
+{% endblock %}

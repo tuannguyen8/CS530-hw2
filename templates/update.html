@@ -1,0 +1,22 @@
+{% extends "layout.html" %} {% block content %}
+<h2>Make the Change for your Quotation Before Updating</h2>
+
+<form action="{{ url_for('update', quote_id=entry.quote_id) }}" method="post" class="entry" id="{{entry.quote_id}}">
+	<div class="quoteID">{{ entry.quote_id }}</div>
+	<div class="quote">{{ entry.quote }}</div>
+	<div class="author">{{ entry.author }}</div>
+	<div class="date">{{ entry.date_of_quote }}</div>
+	<div class="rating">{{ entry.quote_rating }}</div>
+	<div class="source">{{ entry.source_type }}</div>
+	<div class="source">{{ entry.source_of_quote }}</div>
+	<div>
+		<button
+			type="button"
+			class="updatebtn"
+			data-quote-id="{{ entry.quote_id }}"
+		>
+			<a href="{{ url_for('update', quote_id=entry.quote_id) }}">Update123</a>
+		</button>
+	</div>
+</form>
+{% endblock %}
